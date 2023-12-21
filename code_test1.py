@@ -2,13 +2,13 @@ import os
 import requests
 
 # Get API address and port from environment variables or use defaults
-api_address = os.environ.get('API_ADDRESS', '172.17.0.2')
+api_address = os.environ.get('API_ADDRESS', 'api')
 api_port = os.environ.get('API_PORT', '8000')
 
 
 # Make the request to the API
 r = requests.get(  
-url='http://{api_address}:{api_port}/permissions',
+url=f'http://{api_address}:{api_port}/permissions',
     params= {
         'username': 'alice',
         'password': 'wonderland'

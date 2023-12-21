@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 
 RUN apt-get update && apt-get install python3-pip -y && pip3 install requests
 
-ADD code_test1.py /test1/code_test1.py
+ADD code_test1.py /test1/
 
 WORKDIR /test1/
 
