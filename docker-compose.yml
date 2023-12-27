@@ -23,6 +23,22 @@ services:
       - api
     volumes:
       - testvolume01:/test1
+  container_test2:
+    image: image_test2
+    container_name: container_test2
+    build:
+      context: .
+      dockerfile: Dockerfile_test2
+    networks: 
+      - network_test
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=8000
+      - LOG=1
+    depends_on:
+      - container_test1
+    volumes:
+      - testvolume01:/test2
 networks:
   network_test:
 volumes:

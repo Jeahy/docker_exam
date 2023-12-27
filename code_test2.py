@@ -10,71 +10,46 @@ user_data = [
     {'username': 'alice',
     'password': 'wonderland'},
     {'username': 'bob',
-    'password': 'builder'}
+    'password': 'builder'},
+    {'username': 'clementine',
+    'password': 'manarine'}
     ]
-
+sentence = 'this is a test sentence'
 # Make the request to the API
 
 for user in user_data:
 #v1
-    r = requests.get(  
-    url=f'http://{api_address}:{api_port}/v1/sentiment',
-        params = user
-    )
-    status_code = r.status_code
-    # Determine test status based on the HTTP status code
-    if status_code == 200:
-        test_status = 'SUCCESS'
-    else:
-        test_status = 'FAILURE'
+    for version in ['v1', 'v2']:
+        endpoint = f'/{version}/sentiment'
+        url = f'http://{api_address}:{api_port}{endpoint}'
+        params = {'username': user['username'], 'password': user['password'], 'sentence': sentence}
 
-    # Output results
-    output_v1 = f'''
-    ============================
-        Authentication test
-    ============================
-    request done at "/v1/sentiment"
-    {user}
-    expected result = 200
-    actual result = {status_code}
-    ==>  {test_status}
-    '''
+        # Make the request to the API
+        r = requests.get(url, params=params)
 
-    print(output_v1)
+        status_code = r.status_code
+        # Determine test status based on the HTTP status code
+        if status_code == 200:
+            test_status = 'SUCCESS'
+        else:
+            test_status = 'FAILURE'
 
-# Print to a file if LOG environment variable is set to '1'
-    if os.environ.get('LOG') == '1':
-        with open('api_test.log', 'a') as file:
-            file.write(output_v1)
+        # Output results
+        output = f'''
+        ============================
+            Authorization test
+        ============================
+        request done at "{endpoint}"
+        {user['username']}
+        expected result = 200
+        actual result = {status_code}
+        ==>  {test_status}
+        '''
 
-#v2
-   r = requests.get(  
-    url=f'http://{api_address}:{api_port}/v2/sentiment',
-        params = user
-    )
-    status_code = r.status_code
-    # Determine test status based on the HTTP status code
-    if status_code == 200:
-        test_status = 'SUCCESS'
-    else:
-        test_status = 'FAILURE'
+        print(output)
 
-    # Output results
-    output_v2 = f'''
-    ============================
-        Authentication test
-    ============================
-    request done at "/v2/sentiment"
-    {user}
-    expected result = 200
-    actual result = {status_code}
-    ==>  {test_status}
-    '''
+    # Print to a file if LOG environment variable is set to '1'
+        if os.environ.get('LOG') == '1':
+            with open('api_test.log', 'a') as file:
+                file.write(output)
 
-    print(output_v2)
-
-
-# Print to a file if LOG environment variable is set to '1'
-    if os.environ.get('LOG') == '1':
-        with open('api_test.log', 'a') as file:
-            file.write(output_v2)
