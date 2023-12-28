@@ -38,10 +38,11 @@ services:
     depends_on:
       - container_test1
     volumes:
-      - testvolume01:/test2
+      - testvolume02:/test2
 networks:
   network_test:
 volumes:
   testvolume01: {}
+  testvolume02: {}
 
 

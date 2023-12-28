@@ -16,8 +16,6 @@ user_data = [
     ]
 
 # Make the request to the API
-
-
 for user in user_data:
     r = requests.get(  
     url=f'http://{api_address}:{api_port}/permissions',

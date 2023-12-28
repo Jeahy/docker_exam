@@ -12,13 +12,12 @@ user_data = [
     {'username': 'bob',
     'password': 'builder'},
     {'username': 'clementine',
-    'password': 'manarine'}
+    'password': 'mandarine'}
     ]
 sentence = 'this is a test sentence'
 # Make the request to the API
 
 for user in user_data:
-#v1
     for version in ['v1', 'v2']:
         endpoint = f'/{version}/sentiment'
         url = f'http://{api_address}:{api_port}{endpoint}'
