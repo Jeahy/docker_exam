@@ -17,7 +17,13 @@ for s in sentences:
         # Make the request to the API
         r = requests.get(url, params=params)
 
-        status_code = r.status_code
+        score_result = r.json().get('score', 'N/A')
+
+        # Determine test status based on the HTTP status code
+        if score_result > 0:
+            score = 'POSITIVE'
+        else:
+            score = 'NEGATIVE'
 
         # Output results
         output = f'''
@@ -25,9 +31,8 @@ for s in sentences:
             Content test
         ============================
         request done at "{endpoint}"
-        user = alice
-        status = {status_code}
-        ==>  score {r.text} # or r.json()
+        {r.json()}
+        ==>  sentiment score {score}
         '''
 
         print(output)
