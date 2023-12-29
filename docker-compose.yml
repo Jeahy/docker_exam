@@ -22,7 +22,7 @@ services:
     depends_on:
       - api
     volumes:
-      - testvolume01:/test1
+      - testvolume:/logs
   container_test2:
     image: image_test2
     container_name: container_test2
@@ -38,7 +38,7 @@ services:
     depends_on:
       - container_test1
     volumes:
-      - testvolume02:/test2
+      - testvolume:/logs
   container_test3:
     image: image_test3
     container_name: container_test3
@@ -54,11 +54,9 @@ services:
     depends_on:
       - container_test2
     volumes:
-      - testvolume03:/test3
+      - testvolume:/logs
 networks:
   network_test:
 volumes:
-  testvolume01: {}
-  testvolume02: {}
-  testvolume03: {}
+  testvolume: {}
 

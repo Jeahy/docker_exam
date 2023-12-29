@@ -39,7 +39,6 @@ for s in sentences:
 
     # Print to a file if LOG environment variable is set to '1'
         if os.environ.get('LOG') == '1':
-            with open('api_test.log', 'a') as file:
+            with open('/logs/api_test.log', 'a') as file:
                 file.write(output)
-
 
