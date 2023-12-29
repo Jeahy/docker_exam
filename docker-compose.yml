@@ -39,10 +39,26 @@ services:
       - container_test1
     volumes:
       - testvolume02:/test2
+  container_test3:
+    image: image_test3
+    container_name: container_test3
+    build:
+      context: .
+      dockerfile: Dockerfile_test3
+    networks: 
+      - network_test
+    environment:
+      - API_ADDRESS=api
+      - API_PORT=8000
+      - LOG=1
+    depends_on:
+      - container_test2
+    volumes:
+      - testvolume03:/test3
 networks:
   network_test:
 volumes:
   testvolume01: {}
   testvolume02: {}
-
+  testvolume03: {}
 
